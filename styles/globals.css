@@ -1,0 +1,235 @@
+@tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+
+  @layer base {
+    :root {
+      --background: 0 0% 100%;
+      --foreground: 222.2 84% 4.9%;
+
+      --card: 0 0% 100%;
+      --card-foreground: 222.2 84% 4.9%;
+
+      --popover: 0 0% 100%;
+      --popover-foreground: 222.2 84% 4.9%;
+
+      --primary: 222.2 47.4% 11.2%;
+      --primary-foreground: 210 40% 98%;
+
+      --secondary: 210 40% 96.1%;
+      --secondary-foreground: 222.2 47.4% 11.2%;
+
+      --muted: 210 40% 96.1%;
+      --muted-foreground: 215.4 16.3% 46.9%;
+
+      --accent: 210 40% 96.1%;
+      --accent-foreground: 222.2 47.4% 11.2%;
+
+      --destructive: 0 84.2% 60.2%;
+      --destructive-foreground: 210 40% 98%;
+
+      --border: 214.3 31.8% 91.4%;
+      --input: 214.3 31.8% 91.4%;
+      --ring: 222.2 84% 4.9%;
+
+      --radius: 0.5rem;
+    }
+
+    .dark {
+      --background: 222.2 84% 4.9%;
+      --foreground: 210 40% 98%;
+
+      --card: 222.2 84% 4.9%;
+      --card-foreground: 210 40% 98%;
+
+      --popover: 222.2 84% 4.9%;
+      --popover-foreground: 210 40% 98%;
+
+      --primary: 210 40% 98%;
+      --primary-foreground: 222.2 47.4% 11.2%;
+
+      --secondary: 217.2 32.6% 17.5%;
+      --secondary-foreground: 210 40% 98%;
+
+      --muted: 217.2 32.6% 17.5%;
+      --muted-foreground: 215 20.2% 65.1%;
+
+      --accent: 217.2 32.6% 17.5%;
+      --accent-foreground: 210 40% 98%;
+
+      --destructive: 0 62.8% 30.6%;
+      --destructive-foreground: 210 40% 98%;
+
+      --border: 217.2 32.6% 17.5%;
+      --input: 217.2 32.6% 17.5%;
+      --ring: 212.7 26.8% 83.9%;
+    }
+  }
+
+  @layer base {
+    * {
+      @apply border-border;
+    }
+    body {
+      @apply bg-background text-foreground;
+    }
+  }
+  
+/* Tailwind css styles----------------------------------------------------------------------    */
+
+.responsive-nav{
+  @apply hidden md:flex
+}
+
+.menu-nav{
+  @apply fixed md:hidden
+}
+
+  /* ------------------------------------------------------------------------------------------ */
+  /* custom css  */
+  .border-custom{
+    border-radius: 5px;
+    padding: 24px;
+    border: 1px solid #202020;
+  }
+  .icon-custom{
+    color: hsl(240 5% 64.9%);
+  }
+
+  *{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  .col-12{
+    width: 100%;
+  }
+  .col-11{
+    width: 91.66%;
+  }
+  .col-10{
+    width: 83.33%;
+  }
+  .col-9{
+    width: 75%;
+  }
+  .col-8{
+    width: 66.66%;
+  }
+  .col-7{
+    width: 58.33%;
+  }
+  .col-6{
+    width: 50%;
+  }
+  .col-5{
+    width: 41.66%;
+  }
+  .col-4{
+    width: 33.33%;
+  }
+  .col-3{
+    width: 25%;
+  }
+  .col-2{
+    width: 16.66%;
+  }
+  .col-1{
+    width: 8.33%;
+  }
+
+  ::-webkit-scrollbar{
+  background-color: transparent;
+  width: 5px;
+}
+::-webkit-scrollbar-thumb{
+  background-color: white;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover{
+  background-color: #000000;
+}
+
+::-webkit-scrollbar-track{
+  background-color: transparent;
+}
+
+.loader-wrraper{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+.loader {
+  width: 60px;
+  aspect-ratio: 1;
+  --g: conic-gradient(from -90deg at 10px 10px, #fff 90deg, #0000 0);
+  background:
+    var(--g),
+    var(--g) 10px 10px,
+    var(--g) 20px 20px;
+  background-size: 50% 50%;
+  animation: l15 1s infinite;
+}
+
+@keyframes l15 {
+
+  90%,
+  100% {
+    background-position: -30px 30px, -20px 40px, -10px 50px
+  }
+}
+
+/* Media Quireys */
+@media screen and (max-width: 576px) {
+ .col-3{
+  width: 45%;
+ }  
+}
+
+@media (min-width:576px) and (max-width: 767px) {
+ .col-3{
+  width: 48%;
+ }  
+}
+
+@media (min-width:768px) and (max-width: 991px) {
+ .col-3{
+  width: 22%;
+ }  
+ .menu a {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+ }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+ .col-3{
+  width: 22%;
+ }  
+}
+
+@media (min-width:1200px) and (max-width: 1399px) {
+ .col-3{
+  width: 23%;
+ }  
+}
+
+@media screen and (min-width: 1400px) {
+ .col-3{
+  width: 23.6%;
+}
+}   
+
+
