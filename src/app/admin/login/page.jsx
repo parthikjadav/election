@@ -19,49 +19,61 @@ import {
 } from "@/components/ui/tabs"
 import { Textarea } from "@/components/ui/textarea"
 import { DatePickerDemo } from "@/appcomponents/DatePicker"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import axios from "axios"
 import { useRouter } from "next/navigation"
-import toast,{Toaster} from "react-hot-toast"
+import toast, { Toaster } from "react-hot-toast"
 import Link from "next/link"
 
 function TabsDemo() {
-
+  const router = useRouter();
+//   useEffect(() => {
+    
+//     try {
+//       let user = JSON.parse(localStorage.getItem("user"));
+//       if (user?.role == "Admin" && user) {
+//       router.push("/admin/dashboard")
+//     }else if (user) {
+//       router.push("/user/dashboard")
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+// },[router])
   const name = useRef()
   const password = useRef()
-  const router = useRouter()
 
   const [data, setData] = useState({})
 
   const hendleLogin = async () => {
-    if(data?.name!=="" || data?.password!==""){
-    const res = await axios.post("http://13.127.211.205:8000/v1/login/admin", data).catch(e => console.log(e))
-    console.log(res.data.data,"res data");
-    if (res?.status == 200) {
-      toast('Login Success !',
-        {
-          icon: '✅',
-          style: {
-            borderRadius: '10px',
-            background: '#333',
-            color: '#fff',
-          },
-        }
-      );
-      localStorage.setItem("user", JSON.stringify(res.data.data))
-      router.push("/admin/dashboard")
-    } else {
-      toast('Invalid Credancials!',
-        {
-          icon: '❌',
-          style: {
-            borderRadius: '10px',
-            background: '#333',
-            color: '#fff',
-          },
-        }
-      );
-    }
+    if (data?.name !== "" || data?.password !== "") {
+      const res = await axios.post("http://13.127.211.205:8000/v1/login/admin", data).catch(e => console.log(e))
+      console.log(res.data.data, "res data");
+      if (res?.status == 200) {
+        toast('Login Success !',
+          {
+            icon: '✅',
+            style: {
+              borderRadius: '10px',
+              background: '#333',
+              color: '#fff',
+            },
+          }
+        );
+        localStorage.setItem("user", JSON.stringify(res.data.data))
+        router.push("/admin/dashboard")
+      } else {
+        toast('Invalid Credancials!',
+          {
+            icon: '❌',
+            style: {
+              borderRadius: '10px',
+              background: '#333',
+              color: '#fff',
+            },
+          }
+        );
+      }
     }
   }
 
@@ -101,7 +113,7 @@ function TabsDemo() {
                 <div className="flex flex-col">
 
                   <h4 className="my-4" >User? Login <Link href="/user/login" className="underline">here.</Link></h4>
-                <Button onClick={hendleLogin}>Submit</Button>
+                  <Button onClick={hendleLogin}>Submit</Button>
                 </div>
               </CardFooter>
             </Card>

@@ -29,11 +29,28 @@ import toast, { Toaster } from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 import { ADD_ELECTION_PENDING, GET_ALL_ELECTION_PENDING } from '@/redux-saga/user/action'
 import { ADD_ELECTION, GET_ALL_ELECTION, base_url } from '@/redux-saga/constant'
+import { useRouter } from 'next/navigation'
 
 const page = () => {
   const elctions = useSelector((state) => state.userReducer.elections)
   const [open, setOpen] = React.useState(false)
   const [form, setForm] = React.useState({})
+  const router = useRouter();
+// useEffect(() => {
+  
+//   try {
+//     let user = JSON.parse(localStorage.getItem("user"));
+//     if (user?.role == "Admin" && user) {
+//       router.push("/admin/dashboard")
+//     } else if (user) {
+//       router.push("/user/dashboard")
+//     } if (!user) {
+//       router.push("/user/login")
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+// },[router])
 
   const dispatch = useDispatch()
 
@@ -63,11 +80,6 @@ const page = () => {
       }
     );
   }
-
-  useEffect(() => {
-    const url = base_url + GET_ALL_ELECTION
-    dispatch({ type: GET_ALL_ELECTION_PENDING, url })
-  }, [])
 
 
   return (

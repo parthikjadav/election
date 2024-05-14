@@ -1,11 +1,15 @@
-import React from 'react'
+"use client"
+
+import {VotingTable} from '@/appcomponents/VotingTable';
+import { useRouter } from 'next/navigation';
+import React, { useEffect } from 'react'
 
 const page = () => {
-  return (
-    <div>
-      dashboard
-    </div>
-  )
+    return (
+        <div>
+            <VotingTable></VotingTable>
+        </div>
+    )
 }
 
 export default page

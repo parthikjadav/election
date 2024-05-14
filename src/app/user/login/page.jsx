@@ -7,7 +7,7 @@ import { LOGIN_USER, base_url } from "@/redux-saga/constant"
 import axios from "axios"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 import toast,{Toaster} from "react-hot-toast"
 
 function TabsDemo() {
@@ -15,7 +15,21 @@ function TabsDemo() {
     const cardNo = useRef()
     const password = useRef()
     const router = useRouter()
+useEffect(()=>{
 
+    try {
+        let user = JSON.parse(localStorage.getItem("user"));
+        const router = useRouter();
+        if (user?.role == "Admin" && user) {
+            router.push("/admin/dashboard")
+        } else if (user) {
+            router.push("/user/dashboard")
+        }
+    } catch (error) {
+        console.log(error);
+    }
+},[])
+    
     const hendleLogin = async() => {
         const data = {
             cardNo: cardNo.current.value,
@@ -43,7 +57,7 @@ function TabsDemo() {
                         }
                     );
                     localStorage.setItem("user",JSON.stringify(res.data.data))
-                    router.push("/admin/dashboard")
+                    router.push("/user/dashboard")
                 }
             } catch (error) {
                 toast('Invalid Credancials!',

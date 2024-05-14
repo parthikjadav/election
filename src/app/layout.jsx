@@ -19,11 +19,6 @@ const inter = Inter({ subsets: ["latin"] });
 
 
 export default function RootLayout({ children }) {
-  const router = useRouter()
-  const user = JSON.parse(localStorage.getItem("user"))
-  if(!user){
-    router.push("/user/login")
-  }
   return (
     <html lang="en" className={"dark"}>
       <body className={inter.className}>

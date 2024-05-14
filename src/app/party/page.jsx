@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ADD_PARTY_PENDING, DELETE_PARTY_PENDING, GET_ALL_PARTY_PENDING, UPDATE_PARTY_PENDING } from '@/redux-saga/user/action'
 import { ADD_PARTY, DELETE_PARTY, GET_ALL_PARTY, base_url } from '@/redux-saga/constant'
 import toast, { Toaster } from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 
 const Page = () => {
     const [open, setOpen] = React.useState(false)
@@ -28,6 +29,22 @@ const Page = () => {
     const [partyList, setPartyList] = React.useState([])
     const dispatch = useDispatch()
     const party = useSelector((state) => state.userReducer.partys)
+    const router = useRouter();
+// useEffect(() => {
+    
+//     try {
+//         let user = JSON.parse(localStorage.getItem("user"));
+//         if (user?.role == "Admin" && user) {
+//             router.push("/admin/dashboard")
+//         } else if (user) {
+//             router.push("/user/dashboard")
+//         } if (!user) {
+//             router.push("/user/login")
+//         }
+//     } catch (error) {
+//         console.log(error);
+//     }
+// },[router])
 
     useEffect(() => {
         setPartyList(party)
@@ -44,18 +61,6 @@ const Page = () => {
         setFile(e.target.files[0])
     }
 
-    const hendleUpdate = (val) => {
-        setOpen(true)
-        setUpdate(val)
-        console.log(update, "update");
-    }
-
-    // const hendelUpdateVal = () => {
-    //     dispatch({type:UPDATE_PARTY_PENDING,payload:{data:update,url:base_url + 'party/update'}})
-
-    //     setOpen(false)
-    //     setUpdate(null)
-    // }
 
     const handleSubmit = async (e) => {
 
@@ -135,9 +140,7 @@ const Page = () => {
         desc:"Voting count of this month."
     }
 
-    useEffect(() => {
-        dispatch({ type: GET_ALL_PARTY_PENDING })
-    }, [])
+
 
     return (
         <div>

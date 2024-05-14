@@ -1,9 +1,9 @@
 "use client"
 
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import {
     Drawer,
@@ -15,21 +15,66 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from "@/components/ui/drawer"
+import { GET_ALL_CONNECTION_PENDING, GET_ALL_ELECTION_PENDING, GET_ALL_PARTY_PENDING, GET_ALL_USER_PENDING } from '@/redux-saga/user/action'
+import { useDispatch } from 'react-redux'
+import { GET_ALL_ELECTION, GET_ALL_PARTY, GET_ALL_PARTY_LIST, GET_ALL_USER, base_url } from '@/redux-saga/constant'
 
 
 const Navbar = () => {
 
     const pathname = usePathname()
+    const router = useRouter();
+    const dispatch = useDispatch()
+    useEffect(() => {
+        try {
+            let user = JSON.parse(localStorage.getItem("user"));
+            if (user?.role !== "Admin" && user) {
+                router.push("/user/dashboard")
+            } else if(!user){
+                router.push("/user/login")
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }, [router])
+
+    useEffect(() => {
+        const url = base_url + GET_ALL_PARTY_LIST;
+        const elcurl = base_url + GET_ALL_ELECTION;
+        const partyurl = base_url + GET_ALL_PARTY;
+        const urlss = base_url + GET_ALL_USER
+        const urlee = base_url + GET_ALL_ELECTION
+        dispatch({ type: GET_ALL_CONNECTION_PENDING, url });
+        dispatch({ type: GET_ALL_ELECTION_PENDING, url: elcurl });
+        dispatch({ type: GET_ALL_PARTY_PENDING, url: partyurl });
+        dispatch({ type: GET_ALL_USER_PENDING, url:urlss });
+        dispatch({ type: GET_ALL_ELECTION_PENDING, url:urlee })
+    }, []);
 
     const [loading, setLoading] = useState(false)
 
     function load() {
+        let user = JSON.parse(localStorage.getItem("user"));
+        if (!user) {
+            router.push("/user/login")
+        }
         setLoading(true)
         setTimeout(() => {
             setLoading(false)
         }, 1500)
     }
-
+    function loadForLogout() {
+        localStorage.removeItem("user")
+        let user = JSON.parse(localStorage.getItem("user"));
+        if (!user) {
+            router.push("/user/login")
+        }
+        console.log("callsed");
+        setLoading(true)
+        setTimeout(() => {
+            setLoading(false)
+        }, 1500)
+    }
 
     const navLinks = [
         {
@@ -62,6 +107,7 @@ const Navbar = () => {
     }
 
     const isLog = pathname.startsWith("/user/login") || pathname.startsWith("/admin/login")
+    const isLinkShowInUserPage = pathname.startsWith("/user/dashboard")
 
     return (
         <nav id="nav-1" className={isLog ? "hidden" : " drop-shadow-sm"}>
@@ -79,13 +125,13 @@ const Navbar = () => {
                 </div>
                 <div className="menu responsive-nav text-[14px] font-semibold ">
                     {
-                        navLinks.map((link, index) => {
+                        !isLinkShowInUserPage && navLinks.map((link, index) => {
                             let showMenu = pathname.startsWith(link.link)
                             return <Link onClick={load} className={showMenu ? 'px-4 flex items-center text-[#CACACA]' : 'px-5 flex items-center text-[#929293] hover:text-[#CACACA]'} href={link.link} key={index} > {link.name}</Link>
                         })
                     }
                     <div className="button gap-4 mx-auto flex justify-between items-center">
-                        <Button onClick={load}>Logout</Button>
+                        <Button onClick={loadForLogout}>Logout</Button>
                     </div>
                 </div>
 
@@ -112,7 +158,7 @@ const Navbar = () => {
                                     return <Link onClick={load} className={showMenu ? 'px-5 flex items-center text-[#CACACA]' : 'px-5 flex items-center text-[#929293] hover:text-[#CACACA]'} href={link.link} key={index} > {link.name}</Link>
                                 })
                             }
-                            <Button onClick={load} className="mx-5 mt-3 mb-5">Logout</Button>
+                            <Button onClick={loadForLogout} className="mx-5 mt-3 mb-5">Logout</Button>
                         </DrawerFooter>
                     </DrawerContent>
                 </Drawer>

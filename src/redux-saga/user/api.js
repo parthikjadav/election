@@ -14,7 +14,6 @@ export const post_api = (action)=>{
     const options = action?.options || {}
     return axios.post(url,data,options).then(
         (res)=> {
-            console.log(res.data,"res from api");
             return {"data":res.data.data,"status":res.status}
         }
     ).catch((err)=>err)

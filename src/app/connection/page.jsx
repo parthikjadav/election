@@ -2,24 +2,33 @@
 
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {  GET_ALL_ELECTION, GET_ALL_PARTY, GET_ALL_PARTY_LIST, base_url } from '@/redux-saga/constant';
+import { GET_ALL_ELECTION, GET_ALL_PARTY, GET_ALL_PARTY_LIST, base_url } from '@/redux-saga/constant';
 import { GET_ALL_CONNECTION_PENDING, GET_ALL_ELECTION_PENDING, GET_ALL_PARTY_PENDING } from '@/redux-saga/user/action';
 import CustomContainer from '@/appcomponents/CustomContainer';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { SelectForm } from '@/appcomponents/Select';
+import { useRouter } from 'next/navigation';
 
 const Page = () => {
     const state = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
+    const router = useRouter();
+    // useEffect(() => {
 
-    useEffect(() => {
-        const url = base_url + GET_ALL_PARTY_LIST;
-        const elcurl = base_url + GET_ALL_ELECTION;
-        const partyurl = base_url + GET_ALL_PARTY;
-        dispatch({ type: GET_ALL_CONNECTION_PENDING, url });
-        dispatch({ type: GET_ALL_ELECTION_PENDING, url: elcurl });
-        dispatch({ type: GET_ALL_PARTY_PENDING, url: partyurl });
-    }, []);
+    //     try {
+    //         let user = JSON.parse(localStorage.getItem("user"));
+    //         if (user?.role == "Admin" && user) {
+    //             router.push("/admin/dashboard")
+    //         } else if (user) {
+    //             router.push("/user/dashboard")
+    //         } if (!user) {
+    //             router.push("/user/login")
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }, [router])
+
 
     return (
         <>

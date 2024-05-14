@@ -8,15 +8,30 @@ import CustomContainer from '@/appcomponents/CustomContainer';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { SelectForm } from '@/appcomponents/Select';
 import UserRegisterForm from '@/appcomponents/UserRegisterForm';
+import { useRouter } from 'next/navigation';
 
 const Page = () => {
     const state = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
-console.log(state,"state");
-    useEffect(() => {
-        const url = base_url+GET_ALL_USER
-        dispatch({ type: GET_ALL_USER_PENDING, url });
-    }, []);
+    console.log(state, "state");
+    const router = useRouter();
+// useEffect(() => {
+    
+//     try {
+//         let user = JSON.parse(localStorage.getItem("user"));
+//         if (user?.role == "Admin" && user) {
+//             router.push("/admin/dashboard")
+//         } else if (user) {
+//             router.push("/user/dashboard")
+//         } if (!user) {
+//             router.push("/user/login")
+//         }
+//     } catch (error) {
+//         console.log(error);
+//     }
+//     },[router])
+
+  
 
     return (
         <>
