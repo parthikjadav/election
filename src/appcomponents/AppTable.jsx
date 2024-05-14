@@ -18,12 +18,13 @@ const AppTable = ({ data, partyMode, hendleDelete, electionMode ,desc}) => {
                         <ul className='py-5'>
                             {
                                 data?.map((val, index) => {
+                                    console.log(val,"data")
                                     // console.log(data,"data map")
                                     return <li key={index} className='flex justify-between items-center mb-5'>
                                         {
                                           partyMode && <div className='flex items-center gap-3'>
                                                 <div className='party-logo w-[46px] h-[46px] rounded-full'>
-                                                    <Image className='rounded-full grayscale' priority={false} src="https://pngbuy.com/wp-content/uploads/2023/05/BJP-Logo-Black-And-White-PNG-400x400.png" alt='bjp logo' width={46} height={46} />
+                                                    <Image className='rounded-full grayscale' priority={false} src={val.party_logo||"https://pngbuy.com/wp-content/uploads/2023/05/BJP-Logo-Black-And-White-PNG-400x400.png"} alt='bjp logo' width={46} height={46} />
                                                 </div>
                                                 <div>
                                                     <h1 className='text-md font-semibold'>

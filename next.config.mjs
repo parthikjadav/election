@@ -2,7 +2,7 @@
 const nextConfig = {
     reactStrictMode: true,
     images: {
-        domains: ["pngbuy.com"]
+        domains: ["res.cloudinary.com","pngbuy.com"]
     },
     transpilePackages: ['@mui/x-charts']
 };

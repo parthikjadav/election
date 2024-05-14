@@ -80,7 +80,9 @@
 .responsive-nav{
   @apply hidden md:flex
 }
-
+.btn{
+  @apply px-4 py-2 font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600
+}
 .menu-nav{
   @apply fixed md:hidden
 }

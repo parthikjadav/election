@@ -15,9 +15,9 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from "@/components/ui/drawer"
-import { GET_ALL_CONNECTION_PENDING, GET_ALL_ELECTION_PENDING, GET_ALL_PARTY_PENDING, GET_ALL_USER_PENDING } from '@/redux-saga/user/action'
+import { GET_ALL_CONNECTION_PENDING, GET_ALL_ELECTION_PENDING, GET_ALL_PARTY_PENDING, GET_ALL_USER_PENDING, GET_ALL_VOTE_PENDING } from '@/redux-saga/user/action'
 import { useDispatch } from 'react-redux'
-import { GET_ALL_ELECTION, GET_ALL_PARTY, GET_ALL_PARTY_LIST, GET_ALL_USER, base_url } from '@/redux-saga/constant'
+import { GET_ALL_ELECTION, GET_ALL_PARTY, GET_ALL_PARTY_LIST, GET_ALL_USER, GET_ALL_VOTE, base_url } from '@/redux-saga/constant'
 
 
 const Navbar = () => {
@@ -44,11 +44,13 @@ const Navbar = () => {
         const partyurl = base_url + GET_ALL_PARTY;
         const urlss = base_url + GET_ALL_USER
         const urlee = base_url + GET_ALL_ELECTION
+        const votes = base_url+GET_ALL_VOTE
         dispatch({ type: GET_ALL_CONNECTION_PENDING, url });
         dispatch({ type: GET_ALL_ELECTION_PENDING, url: elcurl });
         dispatch({ type: GET_ALL_PARTY_PENDING, url: partyurl });
         dispatch({ type: GET_ALL_USER_PENDING, url:urlss });
         dispatch({ type: GET_ALL_ELECTION_PENDING, url:urlee })
+        dispatch({ type: GET_ALL_VOTE_PENDING, url:votes })
     }, []);
 
     const [loading, setLoading] = useState(false)

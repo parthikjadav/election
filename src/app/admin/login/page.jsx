@@ -48,7 +48,7 @@ function TabsDemo() {
   const hendleLogin = async () => {
     if (data?.name !== "" || data?.password !== "") {
       const res = await axios.post("http://13.127.211.205:8000/v1/login/admin", data).catch(e => console.log(e))
-      console.log(res.data.data, "res data");
+      console.log(res, "res data");
       if (res?.status == 200) {
         toast('Login Success !',
           {
@@ -101,7 +101,7 @@ function TabsDemo() {
               </CardHeader>
               <CardContent className="space-y-2">
                 <div className="space-y-1">
-                  <Label htmlFor="name">Card no.</Label>
+                  <Label htmlFor="name">Name</Label>
                   <Input onChange={(e) => { setData({ ...data, name: e.target.value }) }} value={data?.name} id="name" ref={name} defaultValue="" />
                 </div>
                 <div className="space-y-1">

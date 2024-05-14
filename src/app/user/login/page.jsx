@@ -8,44 +8,65 @@ import axios from "axios"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useRef } from "react"
-import toast,{Toaster} from "react-hot-toast"
+import toast, { Toaster } from "react-hot-toast"
+import { useSelector } from "react-redux"
 
 function TabsDemo() {
 
     const cardNo = useRef()
     const password = useRef()
     const router = useRouter()
-useEffect(()=>{
+    const uservote = useSelector((state) => state.userReducer.votes)
+    console.log(uservote,"uservote");
 
-    try {
-        let user = JSON.parse(localStorage.getItem("user"));
-        const router = useRouter();
-        if (user?.role == "Admin" && user) {
-            router.push("/admin/dashboard")
-        } else if (user) {
-            router.push("/user/dashboard")
+    useEffect(() => {
+
+        try {
+            let user = JSON.parse(localStorage.getItem("user"));
+            const router = useRouter();
+            if (user?.role == "Admin" && user) {
+                router.push("/admin/dashboard")
+            } else if (user) {
+                router.push("/user/dashboard")
+            }
+        } catch (error) {
+            console.log(error);
         }
-    } catch (error) {
-        console.log(error);
-    }
-},[])
-    
-    const hendleLogin = async() => {
+    }, [])
+
+    const hendleLogin = async () => {
         const data = {
             cardNo: cardNo.current.value,
             password: password.current.value
         }
         console.log(data)
+        const isExsist =  uservote.filter((item) => 
+            item.user?.cardNo == data.cardNo 
+        )
+        console.log(isExsist,"fldhgyh");
+        if(isExsist&&isExsist.length>0){
+           return toast('You have submitted vote already!',
+                {
+                    icon: '❌',
+                    style: {
+                        borderRadius: '10px',
+                        background: '#333',
+                        color: '#fff',
+                    },
+                }
+            );
+        }  
         if (data.cardNo === "") {
             alert("Enter card no.")
         }
         else if (data.password === "") {
             alert("Enter password.")
-        }else{
-            console.log(data,"data");
+        } 
+        else {
+            console.log(data, "data");
             try {
-                const res = await axios.post(base_url+LOGIN_USER,data)
-                if(res.status==200){
+                const res = await axios.post(base_url + LOGIN_USER, data)
+                if (res.status == 200) {
                     toast('Login Success !',
                         {
                             icon: '✅',
@@ -56,7 +77,7 @@ useEffect(()=>{
                             },
                         }
                     );
-                    localStorage.setItem("user",JSON.stringify(res.data.data))
+                    localStorage.setItem("user", JSON.stringify(res.data.data))
                     router.push("/user/dashboard")
                 }
             } catch (error) {
